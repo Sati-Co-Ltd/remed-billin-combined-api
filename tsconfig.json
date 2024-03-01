@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "baseUrl": "./src",
+        "esModuleInterop": true,
+        "strict": true,
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "noImplicitAny": true,
+        "sourceMap": false,
+        "declaration": false
+    },
+    "include": ["./src/**/*", "esbuild.config.js"],
+    "exclude": ["node_modules", "**/*.spec.ts", "./src/script/*.ts"],
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
+    },
+    "files": ["src/types/request.d.ts"]
+}
