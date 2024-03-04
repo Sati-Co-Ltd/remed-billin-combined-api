@@ -10,6 +10,6 @@ esbuild
         plugins: [], // Add any plugins you need
         logLevel: "info", // Adjust log level as needed
         write: true, // Write to outdir
-        external: [],
+        external: ["lmdb"],
     })
     .catch(() => process.exit(1));

@@ -3,8 +3,7 @@
         "target": "es6",
         "module": "commonjs",
         "outDir": "./dist",
-        "rootDir": "./src",
-        "baseUrl": "./src",
+        "baseUrl": ".",
         "esModuleInterop": true,
         "strict": true,
         "moduleResolution": "node",
@@ -13,7 +12,10 @@
         "skipLibCheck": true,
         "noImplicitAny": true,
         "sourceMap": false,
-        "declaration": false
+        "declaration": false,
+        "paths": {
+            "*": ["./node_modules/*", "./src/*"]
+        }
     },
     "include": ["./src/**/*", "esbuild.config.js"],
     "exclude": ["node_modules", "**/*.spec.ts", "./src/script/*.ts"],

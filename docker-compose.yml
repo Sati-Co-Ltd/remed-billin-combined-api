@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  remed-billin-api:
+    container_name: remed-billin-api
+    restart: always
+    image: 159696124339.dkr.ecr.ap-southeast-1.amazonaws.com/remed-billin-api:latest
+    environment:
+      - REMED_DB=${REMED_DB}
+      - BILL_IN_DB=${BILL_IN_DB}
+      - LMDB_KEY=${LMDB_KEY}
+    ports:
+      - 7100:3000
+    volumes:
+      - ./volume:/app/volume
