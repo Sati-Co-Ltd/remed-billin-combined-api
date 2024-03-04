@@ -15,6 +15,8 @@ const PORT = 3000;
 
 app.use("/api", apiRouter);
 
+app.get("/health(-|)check", (_, res) => res.json({ status: "OK" }));
+
 app.use(globalErrorHandler);
 app.listen(PORT, () => {
     console.info(`Listening on port ${PORT}`);
