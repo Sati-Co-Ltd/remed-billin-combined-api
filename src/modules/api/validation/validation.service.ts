@@ -1,27 +1,73 @@
 import { isUndefined } from "lodash";
 import { inputReMED } from "./dto/inputDto";
 import { sctDxSctMed } from "./repo/sctDxSctMed";
+import { sctProcedureSctDevice } from "./repo/sctProcedureSctDevice";
 
-const validateSCTDxAndSCTProduct = async (payload: inputReMED) => {
+const validateSCTDxAndSCTProduct = async (input: inputReMED) => {
     try {
-        const { diagnosis, product } = payload;
+        const { diagnosis, product } = input;
 
         const flatDiagnosis = diagnosis.map((i) => i.sctId);
+        const flatProduct = product.map((i) => i.sctId);
 
-        const relate = (await sctDxSctMed.getMany(flatDiagnosis)).filter(
+        const remedRelate = (await sctDxSctMed.getMany(flatDiagnosis)).filter(
             (i) => !isUndefined(i)
         );
 
-        return {
-            relate: relate.map((i) => {
+        const billInRelateDx = (
+            await sctProcedureSctDevice.getMany([
+                ...flatDiagnosis,
+                ...flatProduct,
+            ])
+        ).filter((i) => !isUndefined(i));
+
+        // const billInRelateProduct = (
+        //     await sctProcedureSctDevice.getMany(flatProduct)
+        // ).filter((i) => !isUndefined(i));
+
+        // const relate = remedRelate.map((i) => {
+        //     return {
+        //         sctId: i?.sctId ?? "-",
+        //         value: i?.termReplace ?? "-",
+        //         product: product.filter((j) => i?.medSctId?.includes(j.sctId)),
+        //     };
+        // });
+
+        const relate = diagnosis
+            .filter((i) => remedRelate.some((j) => j?.sctId === i.sctId))
+            .map((i) => {
+                const existRemedRelate = remedRelate.find(
+                    (j) => j?.sctId === i.sctId
+                );
+
+                const existBillInRelate = billInRelateDx.find(
+                    (j) => j?.sctId === i.sctId
+                );
+
+                const relateMed: string[] = [];
+
+                if (!isUndefined(existRemedRelate)) {
+                    relateMed.push(...existRemedRelate.medSctId);
+                }
+
+                if (!isUndefined(existBillInRelate)) {
+                    relateMed.push(...existBillInRelate.medSctId);
+                }
+
                 return {
-                    sctId: i?.sctId ?? "-",
-                    value: i?.termReplace ?? "-",
-                    product: product.filter((j) =>
-                        i?.medSctId?.includes(j.sctId)
-                    ),
+                    sctId: i.sctId,
+                    value: i.value,
+                    product: product.filter((j) => relateMed.includes(j.sctId)),
                 };
-            }),
+            });
+
+        const notRelate = input.diagnosis.filter((i) => {
+            return !remedRelate.some((j) => j?.sctId === i.sctId);
+        });
+
+        return {
+            relate,
+            notRelate,
         };
     } catch (error) {
         throw error;

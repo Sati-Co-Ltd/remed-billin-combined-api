@@ -26,6 +26,7 @@ const aiaInputValidationSCTDxAndSCTProduct = async (
     next: NextFunction
 ) => {
     try {
+        const { type } = req.query as { type: "json" | "text" };
         const payload = req.body as { input: string };
         const prepInput = payload.input.split(",").map((i) => i.trim());
 
@@ -57,16 +58,22 @@ const aiaInputValidationSCTDxAndSCTProduct = async (
             }
         );
 
-        const aiaOutput = relateResult.relate
-            .map((i) => {
-                return `SNOMEDCT_US[${i.sctId}] # ${i.value} : ${i.product
-                    .map((j) => `SNOMEDCT_US[${j.sctId}] # ${j.value ?? "-"}`)
-                    .join(", ")}`;
-            })
-            .join(", ");
-        res.json({
-            output: aiaOutput,
-        });
+        if (type === "json") {
+            res.json(relateResult);
+        } else {
+            const aiaOutput = relateResult.relate
+                .map((i) => {
+                    return `SNOMEDCT_US[${i.sctId}] # ${i.value} : ${i.product
+                        .map(
+                            (j) => `SNOMEDCT_US[${j.sctId}] # ${j.value ?? "-"}`
+                        )
+                        .join(", ")}`;
+                })
+                .join(", ");
+            res.json({
+                output: aiaOutput,
+            });
+        }
     } catch (error) {
         next(error);
     }

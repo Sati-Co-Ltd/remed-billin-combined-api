@@ -4,8 +4,6 @@ import path from "path";
 export const connectLmdb = (lmdbPath: string) => {
     const resolvedPath = path.resolve(process.cwd(), lmdbPath);
 
-    console.info(resolvedPath);
-
     const myDB = open({
         path: resolvedPath,
         compression: true,
