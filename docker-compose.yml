@@ -22,7 +22,7 @@ services:
       - REMED_DB=${REMED_DB}
       - BILL_IN_DB=${BILL_IN_DB}
       - LMDB_KEY=${LMDB_KEY}
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=postgresql://sati:SATI_DEV_2024@db:5432/mydb?schema=public
     ports:
       - 7100:3000
     volumes:

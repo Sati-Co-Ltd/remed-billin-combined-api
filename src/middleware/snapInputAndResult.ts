@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { db } from "repository/db";
+import dayjs from "dayjs";
+
 const snapInputAndResult = (
     req: Request,
     res: Response,
@@ -17,7 +19,11 @@ const snapInputAndResult = (
                 },
             })
             .then((result) => {
-                console.info(`Snap Data: ${result.id}`);
+                console.info(
+                    `${dayjs().format("YYYY-MM-DDTHH:mm:ss")} Snap Data: ${
+                        result.id
+                    }`
+                );
             });
 
         // Call the original json method

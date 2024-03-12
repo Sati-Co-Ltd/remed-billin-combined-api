@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { NextFunction, Response, Request } from "express";
 import { db } from "repository/db";
 const incrementUsage = (req: Request, res: Response, next: NextFunction) => {
@@ -15,9 +16,13 @@ const incrementUsage = (req: Request, res: Response, next: NextFunction) => {
             },
         })
         .then((data) => {
-            console.info(`increment usage for ${data.id}`);
+            console.info(
+                `${dayjs().format("YYYY-MM-DDTHH:mm:ss")} increment usage for ${
+                    data.id
+                }`
+            );
         });
-    next()
+    next();
 };
 
 export default incrementUsage;

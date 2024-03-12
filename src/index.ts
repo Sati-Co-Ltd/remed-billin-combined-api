@@ -10,7 +10,20 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use(morgan("dev"));
+app.use(
+    morgan(
+        ":date[iso] :method :url :status :res[content-length] - :response-time ms",
+        {
+            skip: (req, res) => {
+                if (req.url == "/healthcheck" || req.url === "/health-check") {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+        }
+    )
+);
 
 const PORT = 3000;
 

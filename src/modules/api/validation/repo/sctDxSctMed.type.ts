@@ -1,6 +1,6 @@
 export type sctDiagSctMedType = {
     sctId: string;
-    example: { sctId: string; termReplace: string }[];
-    medSctId: string[];
-    termReplace: string;
+    example: { sctId: string; value: string }[];
+    evidence: string[];
+    value: string;
 };

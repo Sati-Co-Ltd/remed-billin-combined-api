@@ -21,18 +21,6 @@ const validateSCTDxAndSCTProduct = async (input: inputReMED) => {
             ])
         ).filter((i) => !isUndefined(i));
 
-        // const billInRelateProduct = (
-        //     await sctProcedureSctDevice.getMany(flatProduct)
-        // ).filter((i) => !isUndefined(i));
-
-        // const relate = remedRelate.map((i) => {
-        //     return {
-        //         sctId: i?.sctId ?? "-",
-        //         value: i?.termReplace ?? "-",
-        //         product: product.filter((j) => i?.medSctId?.includes(j.sctId)),
-        //     };
-        // });
-
         const relate = diagnosis
             .filter((i) => remedRelate.some((j) => j?.sctId === i.sctId))
             .map((i) => {
@@ -47,11 +35,11 @@ const validateSCTDxAndSCTProduct = async (input: inputReMED) => {
                 const relateMed: string[] = [];
 
                 if (!isUndefined(existRemedRelate)) {
-                    relateMed.push(...existRemedRelate.medSctId);
+                    relateMed.push(...existRemedRelate.evidence);
                 }
 
                 if (!isUndefined(existBillInRelate)) {
-                    relateMed.push(...existBillInRelate.medSctId);
+                    relateMed.push(...existBillInRelate.evidence);
                 }
 
                 return {
