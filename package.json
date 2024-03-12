@@ -14,8 +14,10 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@prisma/client": "^5.10.2",
         "dotenv": "^16.4.5",
-        "lmdb": "^2.9.2"
+        "lmdb": "^2.9.2",
+        "prisma": "^5.10.2"
     },
     "devDependencies": {
         "@types/cors": "^2.8.17",
@@ -23,16 +25,16 @@
         "@types/lodash": "^4.14.202",
         "@types/morgan": "^1.9.9",
         "@types/node": "^20.11.21",
+        "cors": "^2.8.5",
+        "dayjs": "^1.11.10",
         "esbuild": "^0.20.1",
+        "express": "^4.18.2",
+        "lodash": "^4.17.21",
+        "morgan": "^1.10.0",
         "nodemon": "^3.1.0",
         "rimraf": "^5.0.5",
         "ts-node": "^10.9.2",
         "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.3.3",
-        "cors": "^2.8.5",
-        "dayjs": "^1.11.10",
-        "express": "^4.18.2",
-        "lodash": "^4.17.21",
-        "morgan": "^1.10.0"
+        "typescript": "^5.3.3"
     }
 }

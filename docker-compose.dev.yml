@@ -12,3 +12,26 @@ services:
       - 7100:3000
     volumes:
       - ./volume:/app/volume
+    networks:
+      - fullstack-network
+  db:
+    restart: unless-stopped
+    container_name: sati-ai-db
+    image: postgres:15-alpine
+    ports:
+      - 5436:5432
+    volumes:
+      - ./volume/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:-sati}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-SATI_DEV_2024}
+      - POSTGRES_DB=${POSTGRES_DB:-sati-db}
+    networks:
+      - fullstack-network
+
+volumes:
+  data: {}
+
+networks:
+  fullstack-network:
+    driver: bridge
