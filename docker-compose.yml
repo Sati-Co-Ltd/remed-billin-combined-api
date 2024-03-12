@@ -5,7 +5,7 @@ services:
     container_name: sati-ai-db
     image: postgres:15-alpine
     ports:
-      - 5436:5432
+      - 5440:5432
     volumes:
       - ./volume/db:/var/lib/postgresql/data
     environment:
