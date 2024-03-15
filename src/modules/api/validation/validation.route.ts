@@ -1,22 +1,29 @@
-import { Router } from "express";
-import validationController from "./validation.controller";
-import snapInputAndResult from "middleware/snapInputAndResult";
-import incrementUsage from "middleware/increamentUsage";
+import { Router } from 'express';
+import validationController from './validation.controller';
+import snapInputAndResult from 'middleware/snapInputAndResult';
+import incrementUsage from 'middleware/incrementUsage';
 
 const validationRoute = Router();
 
 validationRoute.post(
-    "/sct-diagnosis-to-sct-product",
+    '/sct-indication-to-sct-expense',
     snapInputAndResult,
     incrementUsage,
-    validationController.validationSCTDxAndSCTProduct,
+    validationController.validationSCTDxAndSCTProduct
 );
 
 validationRoute.post(
-    "/aia-input/sct-diagnosis-to-sct-product",
+    '/sct-expense-to-sct-indication',
     snapInputAndResult,
     incrementUsage,
-    validationController.aiaInputValidationSCTDxAndSCTProduct,
+    validationController.validationProductByIndication
+);
+
+validationRoute.post(
+    '/aia-input/sct-indication-to-sct-expense',
+    snapInputAndResult,
+    incrementUsage,
+    validationController.aiaInputValidationSCTDxAndSCTProduct
 );
 
 export default validationRoute;
