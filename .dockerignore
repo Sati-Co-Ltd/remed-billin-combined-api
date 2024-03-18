@@ -143,5 +143,8 @@ dist
 
 # My Custom
 volume/
+.vscode
+docker-compose
+Dockerfile
 
 # End of https://www.toptal.com/developers/gitignore/api/node
